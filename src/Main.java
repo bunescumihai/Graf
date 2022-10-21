@@ -1,12 +1,55 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        Graf graf = new Graf(5,7);
-        graf.setRandomWeights();
-        graf.showListOfEdgesWithWights();
+
+        List<List<Integer>> list = new ArrayList<>(List.of(
+                new ArrayList<>(List.of(1,2)),
+                new ArrayList<>(List.of(0,3,4)),
+                new ArrayList<>(List.of(0,3)),
+                new ArrayList<>(List.of(1,2,4)),
+                new ArrayList<>(List.of(1,3))
+
+        ));
+
+        Graf graf = new Graf(list);
+        System.out.println(graf.getListOfEdges());
+
+        graf.setEdge(0,1,6);
+        graf.setEdge(0,2,2);
+        graf.setEdge(1,3,3);
+        graf.setEdge(1,4,5);
+        graf.setEdge(2,3,4);
+        graf.setEdge(3,4,1);
+
+        System.out.println(graf.getListOfEdges());
+        graf.setByDefaultSortedListOfEdges();
+        System.out.println(graf.getListOfEdges());
 
         AlgorithmPrimAndKruskal alg = new AlgorithmPrimAndKruskal(graf);
-        graf.showListOfEdgesWithWights();
+
         System.out.println(alg.getKruskalListOfEdges());
+        System.out.println(alg.getMinWeight());
+
+        graf.setEdge(0,1,1);
+        graf.setEdge(0,2,2);
+        graf.setEdge(1,3,6);
+        graf.setEdge(1,4,5);
+        graf.setEdge(2,3,3);
+        graf.setEdge(3,4,4);
+
+        alg = new AlgorithmPrimAndKruskal(graf);
+        System.out.println(alg.getKruskalListOfEdges());
+        System.out.println(alg.getMinWeight());
+
+        graf.setEdge(0,1,9);
+
+        alg = new AlgorithmPrimAndKruskal(graf);
+        System.out.println(alg.getKruskalListOfEdges());
+        System.out.println(alg.getMinWeight());
+
+        System.out.println("\n\n\n\n---------------------------------------------");
 
     }
 }

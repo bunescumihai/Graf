@@ -33,6 +33,9 @@ public class Graf {
             this.adjacencyList.add(new ArrayList<>(i));
 
         setNumberOfComponents();
+
+        edges = new Edges(this);
+        this.listOfEdges = edges.getListOfEdges();
     }
 
     public void setAdjacencyList(List<List<Integer>> adjacencyList){
