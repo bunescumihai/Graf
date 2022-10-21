@@ -30,7 +30,7 @@ public class Main {
         AlgorithmPrimAndKruskal alg = new AlgorithmPrimAndKruskal(graf);
 
         System.out.println(alg.getKruskalListOfEdges());
-        System.out.println(alg.getMinWeight());
+        System.out.println(alg.getKruskalMinWeight());
 
         graf.setEdge(0,1,1);
         graf.setEdge(0,2,2);
@@ -41,15 +41,18 @@ public class Main {
 
         alg = new AlgorithmPrimAndKruskal(graf);
         System.out.println(alg.getKruskalListOfEdges());
-        System.out.println(alg.getMinWeight());
+        System.out.println(alg.getKruskalMinWeight());
 
         graf.setEdge(0,1,9);
 
         alg = new AlgorithmPrimAndKruskal(graf);
         System.out.println(alg.getKruskalListOfEdges());
-        System.out.println(alg.getMinWeight());
+        System.out.println(alg.getKruskalMinWeight());
 
         System.out.println("\n\n\n\n---------------------------------------------");
+        System.out.println(alg.getPrimListOfEdges());
+        System.out.println(alg.getPrimMinWeight());
+
 
     }
 }

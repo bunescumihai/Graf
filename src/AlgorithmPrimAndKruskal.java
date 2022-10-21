@@ -6,7 +6,8 @@ public class AlgorithmPrimAndKruskal {
     private final Graf graf;
     private int numberOfIterationsOfPrim = 0;
     private int numberOfIterationsOfKruskal = 0;
-    private int minWeight = 0;
+    private int kruskalMinWeight = 0;
+    private int primMinWeight = 0;
     private List<Edge> kruskalListOfEdges = new ArrayList<Edge>();
     private List<Edge> primListOfEdges = new ArrayList<Edge>();
     private List<Edge> listOfEdges;
@@ -16,6 +17,7 @@ public class AlgorithmPrimAndKruskal {
         graf.setByDefaultSortedListOfEdges();
         this.listOfEdges = graf.getListOfEdges();
         kruskalAlgorithm();
+        primAlgorithm();
     }
 
     private void kruskalAlgorithm(){
@@ -36,7 +38,7 @@ public class AlgorithmPrimAndKruskal {
                     for(List<Integer> j : listOfListsOfVisitedVertices){
                         if(j.contains(nextEdge.getSecondVertex())){
                             i.addAll(j);
-                            minWeight += nextEdge.getWeight();
+                            kruskalMinWeight += nextEdge.getWeight();
                             kruskalListOfEdges.add(nextEdge);
                             listOfListsOfVisitedVertices.remove(j);
                             numberOfVisitedVertices++;
@@ -48,7 +50,7 @@ public class AlgorithmPrimAndKruskal {
                     if(isIncluded)
                         break;
                     i.add(nextEdge.getSecondVertex());
-                    minWeight += nextEdge.getWeight();
+                    kruskalMinWeight += nextEdge.getWeight();
                     kruskalListOfEdges.add(nextEdge);
                     numberOfVisitedVertices++;
                     isIncluded = true;
@@ -58,7 +60,7 @@ public class AlgorithmPrimAndKruskal {
                     for(List<Integer> j : listOfListsOfVisitedVertices){
                         if(j.contains(nextEdge.getFirstVertex())){
                             i.addAll(j);
-                            minWeight += nextEdge.getWeight();
+                            kruskalMinWeight += nextEdge.getWeight();
                             kruskalListOfEdges.add(nextEdge);
                             listOfListsOfVisitedVertices.remove(j);
                             numberOfVisitedVertices++;
@@ -69,7 +71,7 @@ public class AlgorithmPrimAndKruskal {
                     if(isIncluded)
                         break;
                     i.add(nextEdge.getFirstVertex());
-                    minWeight += nextEdge.getWeight();
+                    kruskalMinWeight += nextEdge.getWeight();
                     kruskalListOfEdges.add(nextEdge);
                     numberOfVisitedVertices++;
                     isIncluded = true;
@@ -83,7 +85,7 @@ public class AlgorithmPrimAndKruskal {
                 lastLine.add(nextEdge.getFirstVertex());
                 lastLine.add(nextEdge.getSecondVertex());
                 numberOfVisitedVertices+=2;
-                minWeight += nextEdge.getWeight();
+                kruskalMinWeight += nextEdge.getWeight();
                 kruskalListOfEdges.add(nextEdge);
             }
 
@@ -101,7 +103,7 @@ public class AlgorithmPrimAndKruskal {
                         if((listOfListsOfVisitedVertices.get(j)).contains(nextEdge.getSecondVertex())){
                             i.addAll(listOfListsOfVisitedVertices.get(j));
                             kruskalListOfEdges.add(nextEdge);
-                            this.minWeight += nextEdge.getWeight();
+                            this.kruskalMinWeight += nextEdge.getWeight();
                             listOfListsOfVisitedVertices.remove(j);
                             isIncluded = true;
                             break;
@@ -114,7 +116,7 @@ public class AlgorithmPrimAndKruskal {
                             i.addAll(listOfListsOfVisitedVertices.get(j));
                             listOfListsOfVisitedVertices.remove(j);
                             kruskalListOfEdges.add(nextEdge);
-                            this.minWeight += nextEdge.getWeight();
+                            this.kruskalMinWeight += nextEdge.getWeight();
                             isIncluded = true;
                             break;
                         }
@@ -127,6 +129,35 @@ public class AlgorithmPrimAndKruskal {
     }
 
     private void primAlgorithm(){
+        List<Integer> listOfVisitedVetices = new ArrayList<Integer>();
+        Random random = new Random();
+        int firstVertex = random.nextInt(graf.getNumberOfVertices());
+        List<Edge> listOfEdges = graf.getListOfEdges();
+
+        listOfVisitedVetices.add(firstVertex);
+
+        while(listOfVisitedVetices.size() < graf.getNumberOfVertices()){
+            Edge edgeWithMinWeight = new Edge(0,0,99999);
+            for(Integer i: listOfVisitedVetices){
+                for(Edge e : listOfEdges){
+                    if(e.getFirstVertex() == i || e.getSecondVertex() == i){
+                        if(e.getWeight() < edgeWithMinWeight.getWeight()){
+                            edgeWithMinWeight = e;
+                        }
+                    }
+                }
+            }
+
+            primListOfEdges.add(edgeWithMinWeight);
+            primMinWeight += edgeWithMinWeight.getWeight();
+
+            if(!listOfVisitedVetices.contains(edgeWithMinWeight.getFirstVertex()))
+                listOfVisitedVetices.add(edgeWithMinWeight.getFirstVertex());
+            else
+                listOfVisitedVetices.add(edgeWithMinWeight.getSecondVertex());
+
+            listOfEdges.remove(edgeWithMinWeight);
+        }
 
     }
 
@@ -144,8 +175,11 @@ public class AlgorithmPrimAndKruskal {
         return numberOfIterationsOfKruskal;
     }
 
-    public int getMinWeight(){
-        return this.minWeight;
+    public int getKruskalMinWeight(){
+        return this.kruskalMinWeight;
+    }
+    public int getPrimMinWeight(){
+        return this.primMinWeight;
     }
 
     public List<Edge> getKruskalListOfEdges() {
