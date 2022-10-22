@@ -28,16 +28,20 @@ public class Edges {
     public List<Edge> getSortedListOfEdgesByWeight(){
         List<Edge> list = this.listOfEdges;
         for(int i = 0; i < list.size()-1; i++){
-            this.sortingIterations++;
+            this.sortingIterations+=2;
+            boolean isSorted = true;
             for(int j = 0; j < list.size()-1-i; j++){
                 this.sortingIterations++;
                 if((list.get(j)).getWeight() > (list.get(j+1)).getWeight()){
-                    this.sortingIterations +=3;
+                    isSorted = false;
+                    this.sortingIterations +=4;
                     Edge aux = new Edge(list.get(j));
                     list.set(j, list.get(j+1));
                     list.set(j+1, aux);
                 }
             }
+            if(isSorted)
+                break;
         }
         return list;
     }

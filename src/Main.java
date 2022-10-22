@@ -42,17 +42,31 @@ public class Main {
         alg = new AlgorithmPrimAndKruskal(graf);
         System.out.println(alg.getKruskalListOfEdges());
         System.out.println(alg.getKruskalMinWeight());
+        System.out.println(alg.getKruskalIterations());
 
         graf.setEdge(0,1,9);
 
         alg = new AlgorithmPrimAndKruskal(graf);
         System.out.println(alg.getKruskalListOfEdges());
         System.out.println(alg.getKruskalMinWeight());
+        System.out.println(alg.getSortingKruskalIterations());
+        System.out.println(alg.getKruskalIterations());
 
         System.out.println("\n\n\n\n---------------------------------------------");
         System.out.println(alg.getPrimListOfEdges());
         System.out.println(alg.getPrimMinWeight());
+        System.out.println(alg.getPrimIterations());
 
+
+        for(int i = 4; i <= 40; i++){
+            graf = new Graf(i,0);
+            alg = new AlgorithmPrimAndKruskal(graf);
+
+            System.out.println("----------------- " + i + " --------------------");
+            System.out.println("Prim iteratii = " + alg.getPrimIterations());
+            System.out.println("Kruskal iteratii = " + alg.getKruskalIterations() + alg.getSortingKruskalIterations());
+
+        }
 
     }
 }

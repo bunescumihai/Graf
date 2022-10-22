@@ -60,6 +60,7 @@ public class Graf {
     public void setByDefaultSortedListOfEdges(){
         this.listOfEdges = edges.getSortedListOfEdgesByWeight();
     }
+
     public void setEdge(int firstVertex, int secondVertex, int weight){
 
         if(firstVertex < 0 || firstVertex >= getNumberOfVertices())
@@ -80,6 +81,7 @@ public class Graf {
         (this.adjacencyList.get(secondVertex)).add(firstVertex);
         this.listOfEdges.add(new Edge(firstVertex,secondVertex,weight));
     }
+
     private void initGraf(List<List<Integer>> list){
         for(int i = 0; i < getNumberOfVertices(); i++){
             list.add(new ArrayList<Integer>());
@@ -190,6 +192,10 @@ public class Graf {
                     return i.getWeight();
 
         return 0;
+    }
+
+    public int getSortingIterations(){
+        return edges.getSortingIterations();
     }
 
     public List<List<Integer>> getAdjacencyList() {
